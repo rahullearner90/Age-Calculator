@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <script src="https://kit.fontawesome.com/db8fd1333a.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+        .main{
+            height: 100vh;
+            width:100%;
+            background-color: rgb(0,0,0,0.6);
+        }
+        .containerMain{
+            /* border:solid red 2px; */
+            gap: 5px;
+            flex-direction: column;
+            background-color: #FFFFE8;
+            padding: 20px;
+            border-radius: 10px;
+            border-bottom-right-radius: 100px;
+        }
+        .container1{
+            flex-direction: row;
+            gap: 5px;
+            border-bottom: solid blue 4px;
+            padding: 20px;
+        }
+        input{
+            height: 40px;
+            width: 100px;
+            font-size: 30px;
+            font-weight: 300;
+        }
+        h1{
+            font-size: 50px;
+            font-weight:700;
+        }
+        label{
+            font-size: 30px;
+            font-weight: 300;
+        }
+        i{
+            color:blue;
+            font-weight: 300;
+        }
+        button{
+            padding: 8px;
+            font-size: 25px;
+            height:60px;
+            width:60px;
+            border-radius: 50%;
+            font-weight: 700;
+            background-color: cadetblue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main flex">
+        <div class="containerMain flex">
+            <div class="container1 flex">
+                <div id="parent1">
+                    <label for="dd">DAY</label>
+                    <br>
+                    <input type="text" class="data" placeholder="DD"  id="dd" value="16">
+                    <br>
+                    <small id="info-day"></small>
+                </div>
+                <div id="parent2">
+                    <label for="mm">MONTH</label>
+                    <br>
+                    <input type="text" class="data" id="mm"  placeholder="MM" value="10" >
+                    <br>
+                    <small id="info-month"></small>
+                </div>
+                <div>
+                    <label for="yy">YEAR</label>
+                    <br>
+                    <input type="text"  class="data" id="yy"  placeholder="YYYY" value="1998">
+                    <br>
+                    <small id="info-day"></small>
+                </div>
+            </div>
+            <div>
+                <button id="cal" onclick="handledata()">Cal</button>
+            </div>
+            <div class="container2">
+                <h1><span id="year">-</span>-<span>years</h1>
+                <h1><span id="month">-</span>-<span>months<h1>
+                <h1><span id="days">-</span>-<span>days</h1>
+            </div>
+        </div>
+    </div>
+    <script>
+        let value=document.querySelectorAll("input")
+        let info=document.querySelectorAll("small")
+        let parent1=document.getElementById("parent1")
+        let x=true;
+        // let valuemonth=document.getElementById("mm").value
+        // console.log(value)
+        // console.log("this one",value.nextElementSibling)
+        // console.log(info[1])
+        checker=()=>{
+            value.forEach((v,i) => {
+                if(!v.value){
+                    // console.log(v.parentElement)
+                        info[i].innerText="this field is requred"
+                        info[i].style.color="red"
+                        v.style.borderColor="red"
+                        x=false
+                }else if((value[1].value>12)){
+                    info[1].innerText="Enter a valid month"
+                        info[1].style.color="red"
+                        info[1].borderColor="red"
+                        x=false
+                }else if((value[0].value>31)){
+                    info[0].innerText="Enter valid date"
+                        info[0].style.color="red"
+                        info[0].borderColor="red"
+                        x=false
+                }else{
+                    info[i].innerText=""
+                    check=true
+                }
+                return x
+            });
+        }
+
+        const date = new Date();
+let day = date.getDate();
+let month = 1 + date.getMonth();
+let year = date.getFullYear();
+
+const months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        handledata=()=>{
+            if(checker()){
+                if((value[0].value>day))
+                day = day + months[month - 1];
+                month = month - 1;
+            }
+            if (value[1].value > month) {
+                month = month + 12;
+                year = year - 1;
+            }
+            let d = day - value[0].value;
+            let m = month - value[1].value;
+            let y = year - value[2].value;
+            if(d<10){
+                d="0"+d
+            }
+            if(m<10){
+                m="0"+m
+            }
+            if(y<10){
+                y="0"+y
+            }
+            document.getElementById("year").innerText=y;
+            document.getElementById("month").innerHTML=m;
+            document.getElementById("days").innerHTML=d;
+        }
+        
+    </script>
+</body>
+</html>
