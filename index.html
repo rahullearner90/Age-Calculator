@@ -169,9 +169,11 @@ const months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
             if(y<10){
                 y="0"+y
             }
-            document.getElementById("year").innerText=y;
-            document.getElementById("month").innerHTML=m;
-            document.getElementById("days").innerHTML=d;
+            if(x==true){
+                document.getElementById("year").innerText=y;
+                document.getElementById("month").innerHTML=m;
+                document.getElementById("days").innerHTML=d;
+            }
         }
         
     </script>
